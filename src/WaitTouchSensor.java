@@ -2,22 +2,32 @@
 import lejos.nxt.*;
 
 /**
- * 
+ * Classe WaitTouchSensor
  * @author Andrea Rauso
  * @author Peter Catania
  */
 public class WaitTouchSensor {
-	private TouchSensor ts;
 	
-	public WaitTouchSensor(TouchSensor ts) {
-		this.ts = ts;
+	/**
+	 * il sensore di tatto
+	 */
+	private TouchSensor touchSensor;
+	
+	/**
+	 * Costruttore con 1 parametro
+	 * @param touchSensor il sensore di tatto
+	 */
+	public WaitTouchSensor(TouchSensor touchSensor) {
+		this.touchSensor = touchSensor;
 	}
 	
 	/**
+	 * Metodo waitTouch che aspetta che il sensore di tatto sia premuto o rilasciato
+	 * 
+	 * mode:
 	 * 0 -> pressed
 	 * 1 -> released
-	 * 2 -> clicked
-	 * @param action
+	 * @param action l'azione da aspettare
 	 */
 	public void waitTouch(int mode) {
 		boolean finish = false;
@@ -25,25 +35,17 @@ public class WaitTouchSensor {
 		while(!finish) {
 			if(mode == 0) {
 				while(!pressed) {
-					pressed = ts.isPressed();
+					pressed = touchSensor.isPressed();
 				}
 				finish = true;
-			}else if(mode == 1) {
-				if(ts.isPressed()) {
+			}else{
+				if(touchSensor.isPressed()) {
 					pressed = true;
 					while(pressed) {
-						pressed = ts.isPressed();
+						pressed = touchSensor.isPressed();
 					}
+					finish = true;
 				}
-				finish = true;
-			}else {
-				while(!pressed) {
-					pressed = ts.isPressed();
-				}
-				while(pressed) {
-					pressed = ts.isPressed();
-				}
-				finish = true;
 			}
 		}
 	}

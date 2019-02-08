@@ -1,5 +1,10 @@
 import lejos.nxt.*;
 
+/**
+ * Classe WaitSoundSensor
+ * @author Andrea Rauso
+ * @author Peter Catania
+ */
 public class WaitSoundSensor {
 	/**
 	 * Il sensore di suono
@@ -8,16 +13,16 @@ public class WaitSoundSensor {
 	
 	/**
 	 * Costruttore con 1 parametro
-	 * @param ls il sensore di luce
+	 * @param soundSensor il sensore di suono
 	 */
 	public WaitSoundSensor(SoundSensor soundSensor) {
 		this.soundSensor = soundSensor;
 	}
 	
 	/**
-	 * 
-	 * @param sign
-	 * @param value
+	 * Metodo waitSoundValue che aspetta un valore dal sensore di suono
+	 * @param sign indica se il valore deve essere maggiore o minore
+	 * @param value il valore da trovare
 	 */
 	public void waitSoundValue (boolean sign, int value) {
 		boolean finish = false;
@@ -25,13 +30,16 @@ public class WaitSoundSensor {
 			if(sign) {
 				if(soundSensor.readValue() > value) {
 					finish = true;
+				}else {
+					finish = false;
 				}
 			}else{
 				if(soundSensor.readValue() < value) {
 					finish = true;
+				}else {
+					finish = false;
 				}
 			}
-			finish = false;
 		}
 	}
 }
